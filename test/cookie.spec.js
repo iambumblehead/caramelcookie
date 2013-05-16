@@ -1,12 +1,11 @@
 // browser emulation libs for node.js not yet sufficient using here.
 // poor mans tests.
 
-var Cookie = require('../Cookie');
+var Cookie = require('../juicy-cookie');
+var SimpleTime = require('simpletime');
 
 Cookie.prototype.setDocCookieStr = function (str) {};
 Cookie.prototype.getDocCookieStr = function () {};
-
-
 
 
 
@@ -93,24 +92,24 @@ describe("Cookie.getNew", function () {
 });
 
 
-describe("Cookie.prototype.getValueAsCrumb", function () {
+describe("Cookie.prototype.getAsCrumbStr", function () {
 
   it("should return an object as a string", function () {
-    var result = Cookie.prototype.getValueAsCrumb({ prop1 : 'val1', prop2 : 'val2' }),
+    var result = Cookie.prototype.getAsCrumbStr({ prop1 : 'val1', prop2 : 'val2' }),
         resultExpected = '{"prop1":"val1","prop2":"val2"}';
 
     expect( result ).toBe( resultExpected );
   });
 
   it("should return a string as a string", function () {
-    var result = Cookie.prototype.getValueAsCrumb('aval'),
+    var result = Cookie.prototype.getAsCrumbStr('aval'),
         resultExpected = 'aval';
 
     expect( result ).toBe( resultExpected );
   });
 
   it("should return a string with trailing commas removed", function () {
-    var result = Cookie.prototype.getValueAsCrumb('aval,,,,'),
+    var result = Cookie.prototype.getAsCrumbStr('aval,,,,'),
         resultExpected = 'aval';
 
     expect( result ).toBe( resultExpected );
@@ -123,60 +122,143 @@ describe("Cookie.prototype.getAsCookieStr", function () {
 
   it("should return a valid cookie string, with given `name`, `value`", function () {
     var result = Cookie.getNew({
-      name : 'testCookie',
-      value : 'testCookieValue'
+      name : 'testcookie',
+      value : 'testcookieValue'
     }).getAsCookieStr();
 
-    var resultExpected = 'testCookie=testCookieValue;domain=localhost;path=/;';
+    var resultExpected = 'testcookie=testcookieValue;domain=localhost;path=/;';
     expect( result ).toBe( resultExpected );
 
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `expires`", function () {
     var result = Cookie.getNew({
-      name : 'testCookie',
-      value : 'testCookieValue',
+      name : 'testcookie',
+      value : 'testcookieValue',
       //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
       expires : 1365222221485
     }).getAsCookieStr();
 
-    var resultExpected = 'testCookie=testCookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;domain=localhost;path=/;';
+    var resultExpected = 'testcookie=testcookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;domain=localhost;path=/;';
     expect( result ).toBe( resultExpected );
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `domain`", function () {
     var result = Cookie.getNew({
-      name : 'testCookie',
-      value : 'testCookieValue',
+      name : 'testcookie',
+      value : 'testcookieValue',
       domain : 'testDomain.com'
     }).getAsCookieStr();
 
-    var resultExpected = 'testCookie=testCookieValue;domain=testDomain.com;path=/;';
+    var resultExpected = 'testcookie=testcookieValue;domain=testDomain.com;path=/;';
     expect( result ).toBe( resultExpected );
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `path`", function () {
     var result = Cookie.getNew({
-      name : 'testCookie',
-      value : 'testCookieValue',
+      name : 'testcookie',
+      value : 'testcookieValue',
       path : '/signin'
     }).getAsCookieStr();
 
-    var resultExpected = 'testCookie=testCookieValue;domain=localhost;path=/signin;';
+    var resultExpected = 'testcookie=testcookieValue;domain=localhost;path=/signin;';
     expect( result ).toBe( resultExpected );
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `expires`, `domain`, `path`", function () {
     var result = Cookie.getNew({
-      name : 'testCookie',
-      value : 'testCookieValue',
+      name : 'testcookie',
+      value : 'testcookieValue',
       //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
       expires : 1365222221485,
       domain : 'testDomain.com',
       path : '/signin'
     }).getAsCookieStr();
-    var resultExpected = 'testCookie=testCookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;domain=testDomain.com;path=/signin;';
+    var resultExpected = 'testcookie=testcookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;domain=testDomain.com;path=/signin;';
     expect( result ).toBe( resultExpected );
+  });
+
+});
+
+
+describe("Cookie.prototype.setExpire", function () {
+
+  it("should accept parameter, new Date()", function () {  
+    //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
+    var date = new Date();
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    cookie.setExpires(date);
+    expect( cookie.expires ).toBe( date );
+  });
+
+  it("should accept parameter, 1365222221485", function () {  
+    //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
+    var date = 1365222221485;
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    cookie.setExpires(date);
+    expect( cookie.expires ).toBe( date );
+  });
+
+  it("should accept parameter, { hh : 1 }", function () {  
+    var date = new Date();
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    var resultExpected = SimpleTime.getHourFromDate(date, 1);
+    cookie.setExpires({ hh : 1 });
+
+    expect( cookie.expires.getTime() ).toBe( resultExpected.getTime() );
+  });
+
+  it("should accept parameter, { mm : 1 }", function () {  
+    var date = new Date();
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    var resultExpected = SimpleTime.getMinFromDate(date, 1);
+    cookie.setExpires({ mm : 1 });
+
+    expect( cookie.expires.getTime() ).toBe( resultExpected.getTime() );
+  });
+
+  it("should accept parameter, { ss : 1 }", function () {  
+    var date = new Date();
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    var resultExpected = SimpleTime.getSecFromDate(date, 1);
+    cookie.setExpires({ ss : 1 });
+
+    expect( cookie.expires.getTime() ).toBe( resultExpected.getTime() );
+  });
+
+  it("should accept parameter, { hh : 1, mm : 1, ss : 1 }", function () {  
+    var date = new Date();
+    var cookie = Cookie.getNew({
+      name : 'testcookie',
+      value : 'testcookieValue'
+    });
+
+    date = SimpleTime.getSecFromDate(date, 1);
+    date = SimpleTime.getMinFromDate(date, 1);
+    date = SimpleTime.getHourFromDate(date, 1);
+    cookie.setExpires({ hh : 1, mm : 1, ss : 1 });
+
+    expect( true ).toBe( true );
   });
 
 });
