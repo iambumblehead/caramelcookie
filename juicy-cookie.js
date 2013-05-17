@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.16-20:38:54 (last modified)  
+// Timestamp: 2013.05.17-11:25:57 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -23,20 +23,7 @@ var JuicyCookie =
     // domain inherited by all cookies may be explicitly defined:
     //
     // ex: `JuicyCookie.prototype.domain = 'mydomain.com'`
-    domain : (function () {
-      var dmn = '', hostname;
-
-      if (typeof location === 'object') {
-        hostname = location.hostname;
-        if (hostname) {
-          dmn = hostname;
-          if (hostname !== 'localhost') {
-            dmn = '.' + dmn;
-          }
-        }
-        return dmn;
-      }
-    }()),
+    domain : false,
 
     setDocCookieStr : function (cookieStr) {
       document.cookie = cookieStr;    
@@ -45,6 +32,25 @@ var JuicyCookie =
     getDocCookieStr : function () {
       return document.cookie;
     },
+
+    // should do a better job of setting default...
+    getUrlAsDomainStr : function (url) {
+      var dmn = '', toplevel;
+
+      if (url) {
+        dmn = url;
+        if (url !== 'localhost') {
+          if ((toplevel = url.match(/\d*\.\d*\.\d*\.\d*$/))) {
+            // ip address cannot be wildcarded
+            dmn = toplevel[0];
+          } else if ((toplevel = url.match(/\w*\.\w*$/))) {
+            dmn = '.' + toplevel[0];
+          }
+        }
+      }
+      return dmn;
+    },
+
 
     getAsCookieStr : function () {
       var that = this,
@@ -57,12 +63,19 @@ var JuicyCookie =
 
       return finStr;
     },
-    
-    // name must be lowercase
-    setName : function (name) {
-      if (typeof name === 'string') {
-        this.name = name.toLowerCase();
+
+    setDomain : function (dmn) {
+      var that = this;
+      if (typeof dmn === 'string') {
+        that.domain = dmn;
+      } else if (typeof location === 'object') {
+        that.domain = that.getUrlAsDomainStr(location.hostname);
       }
+    },
+    
+
+    setName : function (name) {
+      this.name = name;
     },
 
     getAsCrumbStr : function (v) {
@@ -133,10 +146,7 @@ var JuicyCookie =
         that.setName(params.name);
         that.setExpires(params.expires);
         that.setValue(params.value);
-
-        if (params.domain) {
-          that.domain = params.domain;
-        }
+        that.setDomain(params.domain);
 
         that.path    = params.path || '/';
         that.secure  = params.secure || false;

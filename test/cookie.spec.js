@@ -64,9 +64,9 @@ describe("Cookie.getNew", function () {
   });
 
 
-  it("should return with domain default, `localhost`", function () {
+  it("should return with domain default, `false`", function () {
     var cookie = Cookie.getNew();
-    expect( cookie.domain ).toBe('localhost');
+    expect( cookie.domain ).toBe( false );
   });
 
   it("should return with path given, `.test.com`", function () {
@@ -118,6 +118,36 @@ describe("Cookie.prototype.getAsCrumbStr", function () {
 });
 
 
+describe("Cookie.prototype.getAsDomainStr", function () {
+
+  it("should return a domain, prefixed with `.`", function () {
+     var domain = 'foxsports.com';
+     var result = Cookie.prototype.getUrlAsDomainStr(domain),
+         resultExpected = '.foxsports.com';
+
+    expect( result ).toBe( resultExpected );
+  });
+
+
+  it("should return a top level domain from a subdomain url", function () {
+     var domain = 'qa.foxsports.com';
+     var result = Cookie.prototype.getUrlAsDomainStr(domain),
+         resultExpected = '.foxsports.com';
+
+    expect( result ).toBe( resultExpected );
+  });
+
+  it("should return a top leval domain from a subdomain url", function () {
+     var domain = '127.0.0.1';
+     var result = Cookie.prototype.getUrlAsDomainStr(domain),
+         resultExpected = '127.0.0.1';
+
+    expect( result ).toBe( resultExpected );
+  });
+
+
+});
+
 describe("Cookie.prototype.getAsCookieStr", function () {
 
   it("should return a valid cookie string, with given `name`, `value`", function () {
@@ -126,7 +156,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
       value : 'testcookieValue'
     }).getAsCookieStr();
 
-    var resultExpected = 'testcookie=testcookieValue;domain=localhost;path=/;';
+    var resultExpected = 'testcookie=testcookieValue;path=/;';
     expect( result ).toBe( resultExpected );
 
   });
@@ -139,7 +169,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
       expires : 1365222221485
     }).getAsCookieStr();
 
-    var resultExpected = 'testcookie=testcookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;domain=localhost;path=/;';
+    var resultExpected = 'testcookie=testcookieValue;expires=Sat, 06 Apr 2013 04:23:41 GMT;path=/;';
     expect( result ).toBe( resultExpected );
   });
 
@@ -161,7 +191,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
       path : '/signin'
     }).getAsCookieStr();
 
-    var resultExpected = 'testcookie=testcookieValue;domain=localhost;path=/signin;';
+    var resultExpected = 'testcookie=testcookieValue;path=/signin;';
     expect( result ).toBe( resultExpected );
   });
 

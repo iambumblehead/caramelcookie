@@ -8,13 +8,15 @@ juicy-cookie allows you to get, set, and rm cookie data.
 
 There are a [few][2] cookie-specific [details][3] that you may want to know.
 
-   - the name of a cookie must be lower-cased
+   - the name of a cookie is not case-sensitive
    - each cookie is associated with a specific domain-name -juicy-cookie uses your top-level domain as its default
    - a cookie from the document will not yield meta-data, name and value only
+   - a cookie's domain value must have two '.' characters in it and should begin with a '.' character
 
 [0]: http://www.bumblehead.com                            "bumblehead"
 [2]: https://developer.mozilla.org/en-US/docs/DOM/document.cookie
 [3]: http://tools.ietf.org/html/rfc6265                      "rfc6265"
+[4]: http://msdn.microsoft.com/en-us/library/ms970178.aspx      "msdn"
 
 ---------------------------------------------------------
 #### <a id="install"></a>Install:
