@@ -49,9 +49,9 @@ juicy-cookie may be downloaded directly or installed through `npm`.
  - **prototype**  
  `prototype` is not a method but a property defined on the `JuicyCookie` namespace. the prototype is used by juicy-cookie to construct its own cookie object. prototype may be accessed to redefine its default properties. for example, you may want to specify a specific `domain` value cookies would associate with,
 
- > ```javascript
-   JuicyCookie.prototype.domain = 'mydomain.com';
-   ```
+ ```javascript
+ JuicyCookie.prototype.domain = 'mydomain.com';
+ ```
 
 
  - **getNew( _obj_ )**     
@@ -59,38 +59,37 @@ juicy-cookie may be downloaded directly or installed through `npm`.
 
  this constructor uses all possible property values:
  
- > ```javascript
-   JuicyCookie.getNew({
-     name : 'token'
-     value : 'sldkjf0s9df',
-     path : '/',
-     domain : '.foxsports.com',
-     secure : true,
-     expires : {
-       y : 0,
-       m : 0,
-       d : 0,
-       hh : 0,
-       mm : 30,
-       ss : 30
-     }
-   })
-   ```
+ ```javascript
+ JuicyCookie.getNew({
+   name : 'token'
+   value : 'sldkjf0s9df',
+   path : '/',
+   domain : '.foxsports.com',
+   secure : true,
+   expires : {
+     y : 0,
+     m : 0,
+     d : 0,
+     hh : 0,
+     mm : 30,
+     ss : 30
+   }
+ })
+ ```
  note that expires may also be defined with the value of a timestamp or a date object.
-
 
 
  - **persist( _obj_ )**     
  constructs a new cookie object and persists it to the document.
  
- > ```javascript
-   JuicyCookie.getNew({
-     name : 'token'
-     value : 'sldkjf0s9df',
-     expires : { mm : 30 }
-   }
-   ```
- 
+ ```javascript
+ JuicyCookie.getNew({
+   name : 'token'
+   value : 'sldkjf0s9df',
+   expires : { mm : 30 }
+ }
+ ```
+
  - **getAllObj( _obj_ )**      
  returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
 
