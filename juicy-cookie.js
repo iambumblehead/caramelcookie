@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.16-18:06:45 (last modified)  
+// Timestamp: 2013.05.16-19:30:25 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -9,12 +9,34 @@ var JuicyCookie =
   ((typeof module === 'object') ? module : {}).exports = (function () {
 
   var cookie = {
-    name : '', // must be lowercase
+    name : '', 
     value : '',
     expires : '',
-    domain : 'localhost',
     path : '/',
     secure : false,
+
+    // we try to define a reasonable default that would allow cookie sharing
+    // among subdomains. 
+    //
+    // ex: `.foxsports.com`.
+    //
+    // domain inherited by all cookies may be explicitly defined:
+    //
+    // ex: `JuicyCookie.prototype.domain = 'mydomain.com'`
+    domain : (function () {
+      var dmn = '', hostname;
+
+      if (typeof location === 'object') {
+        hostname = location.hostname;
+        if (hostname) {
+          dmn = hostname;
+          if (hostname !== 'localhost') {
+            dmn = '.' + dmn;
+          }
+        }
+        return dmn;
+      }
+    }()),
 
     setDocCookieStr : function (cookieStr) {
       document.cookie = cookieStr;    
@@ -65,9 +87,8 @@ var JuicyCookie =
     // 2) an object w/ properties `y`, `m`, `d`, `hh`, `mm`, `ss`
     // 3) a number. assumption made: number is a timestamp
     setExpires : function (o) {
-      var dateObj = '',
-          y, m, d, hh, mm, ss;
-      
+      var dateObj = '';
+
       if (SimpleTime.isDateObj(o)) {
         dateObj = o;
       } else if (typeof o === 'number') {
@@ -113,8 +134,11 @@ var JuicyCookie =
         that.setExpires(params.expires);
         that.setValue(params.value);
 
+        if (params.domain) {
+          that.domain = params.domain;
+        }
+
         that.path    = params.path || '';
-        that.domain  = params.domain || 'localhost';
         that.path    = params.path || '/';
         that.secure  = params.secure || false;
       }
