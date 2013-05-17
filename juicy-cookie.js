@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.17-11:39:30 (last modified)  
+// Timestamp: 2013.05.17-12:33:58 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -199,7 +199,7 @@ var JuicyCookie =
     },
 
     rm : function (name) {
-      this.getNew({ name : name }).rm();
+      this.getNew(name, 'value').rm();
     },
 
     getValue : function (name) {
