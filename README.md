@@ -52,7 +52,8 @@ juicy-cookie may be downloaded directly or installed through `npm`.
  > ```javascript
    JuicyCookie.prototype.domain = 'mydomain.com';
    ```
-   
+
+
  - **getNew( _obj_ )**     
  constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
 
@@ -76,6 +77,7 @@ juicy-cookie may be downloaded directly or installed through `npm`.
    })
    ```
  note that expires may also be defined with the value of a timestamp or a date object.
+
 
 
  - **persist( _obj_ )**     
