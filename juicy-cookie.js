@@ -1,13 +1,12 @@
-// Filename: JuciyCookie.js  
-// Timestamp: 2013.05.16-16:24:23 (last modified)  
+// Filename: JuicyCookie.js  
+// Timestamp: 2013.05.16-18:06:45 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
 var SimpleTime = require('simpletime');
 
-var JuicyCookie = module.exports = (function () {
-
-  // replace commas with bars, to normalize cookie parsing of json
+var JuicyCookie = 
+  ((typeof module === 'object') ? module : {}).exports = (function () {
 
   var cookie = {
     name : '', // must be lowercase
