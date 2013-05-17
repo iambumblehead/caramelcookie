@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.16-19:30:25 (last modified)  
+// Timestamp: 2013.05.16-20:38:54 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -138,7 +138,6 @@ var JuicyCookie =
           that.domain = params.domain;
         }
 
-        that.path    = params.path || '';
         that.path    = params.path || '/';
         that.secure  = params.secure || false;
       }
