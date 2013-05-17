@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.17-11:25:57 (last modified)  
+// Timestamp: 2013.05.17-11:39:30 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -75,7 +75,9 @@ var JuicyCookie =
     
 
     setName : function (name) {
-      this.name = name;
+      if (typeof name === 'string') {
+        this.name = name;
+      }
     },
 
     getAsCrumbStr : function (v) {
@@ -140,12 +142,16 @@ var JuicyCookie =
 
     // name    : name of cookie
     // expired : timestamp or date object
-    getNew : function (params) {
+    getNew : function (name, value, params) {
       var that = Object.create(cookie);
+
+      that.setName(name);
+      that.setValue(value);
+
       if (params) {
-        that.setName(params.name);
+        //that.setName(params.name);
         that.setExpires(params.expires);
-        that.setValue(params.value);
+        //that.setValue(params.value);
         that.setDomain(params.domain);
 
         that.path    = params.path || '/';
@@ -156,8 +162,8 @@ var JuicyCookie =
     },
 
     // convenience method -constructs AND persists cookie
-    persist : function (params) {
-      var cookieObj = this.getNew(params);
+    persist : function (name, value, params) {
+      var cookieObj = this.getNew(name, value, params);
 
       return cookieObj.persist();
     },

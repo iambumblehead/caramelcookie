@@ -17,12 +17,9 @@ describe("Cookie.getNew", function () {
   });
 
   it("should return with name given, `testname`", function () {
-    var cookie = Cookie.getNew({
-      name : 'testname'
-    });
+    var cookie = Cookie.getNew('testname');
     expect( cookie.name ).toBe( 'testname' );    
   });
-
 
   it("should return with value default, `` (none)", function () {
     var cookie = Cookie.getNew();
@@ -30,20 +27,17 @@ describe("Cookie.getNew", function () {
   });
 
   it("should return with value given, `testvalue`", function () {
-    var cookie = Cookie.getNew({
-      value : 'testvalue'
-    });
+    var cookie = Cookie.getNew('testname', 'testvalue');
     expect( cookie.value ).toBe( 'testvalue' );    
   });
 
-  
   it("should return with expiration default, `` (none)", function () {
     var cookie = Cookie.getNew();
     expect( cookie.expires ).toBe( '' );    
   });
 
   it("should return with expiration given, `1365222221485`", function () {
-    var cookie = Cookie.getNew({
+    var cookie = Cookie.getNew('testname', 'testval', {
       //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
       expires : 1365222221485
     });
@@ -57,7 +51,7 @@ describe("Cookie.getNew", function () {
   });
 
   it("should return with path given, `/signin`", function () {
-    var cookie = Cookie.getNew({
+    var cookie = Cookie.getNew('testname', 'testval', {
       path : '/signin'
     });
     expect( cookie.path ).toBe('/signin');
@@ -70,7 +64,7 @@ describe("Cookie.getNew", function () {
   });
 
   it("should return with path given, `.test.com`", function () {
-    var cookie = Cookie.getNew({
+    var cookie = Cookie.getNew('testname', 'testval', {
       domain : '.test.com'
     });
     expect( cookie.domain ).toBe('.test.com');
@@ -83,7 +77,7 @@ describe("Cookie.getNew", function () {
   });
 
   it("should return with secure given, `true`", function () {
-    var cookie = Cookie.getNew({
+    var cookie = Cookie.getNew('testname', 'testval', {
       secure : true
     });
     expect( cookie.secure ).toBe(true);
@@ -151,10 +145,7 @@ describe("Cookie.prototype.getAsDomainStr", function () {
 describe("Cookie.prototype.getAsCookieStr", function () {
 
   it("should return a valid cookie string, with given `name`, `value`", function () {
-    var result = Cookie.getNew({
-      name : 'testcookie',
-      value : 'testcookieValue'
-    }).getAsCookieStr();
+    var result = Cookie.getNew('testcookie', 'testcookieValue').getAsCookieStr();
 
     var resultExpected = 'testcookie=testcookieValue;path=/;';
     expect( result ).toBe( resultExpected );
@@ -162,9 +153,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `expires`", function () {
-    var result = Cookie.getNew({
-      name : 'testcookie',
-      value : 'testcookieValue',
+    var result = Cookie.getNew('testcookie', 'testcookieValue', {
       //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
       expires : 1365222221485
     }).getAsCookieStr();
@@ -174,9 +163,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `domain`", function () {
-    var result = Cookie.getNew({
-      name : 'testcookie',
-      value : 'testcookieValue',
+    var result = Cookie.getNew('testcookie', 'testcookieValue', {
       domain : 'testDomain.com'
     }).getAsCookieStr();
 
@@ -185,9 +172,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `path`", function () {
-    var result = Cookie.getNew({
-      name : 'testcookie',
-      value : 'testcookieValue',
+    var result = Cookie.getNew('testcookie', 'testcookieValue', {
       path : '/signin'
     }).getAsCookieStr();
 
@@ -196,9 +181,7 @@ describe("Cookie.prototype.getAsCookieStr", function () {
   });
 
   it("should return a valid cookie string, with given `name`, `value`, `expires`, `domain`, `path`", function () {
-    var result = Cookie.getNew({
-      name : 'testcookie',
-      value : 'testcookieValue',
+    var result = Cookie.getNew('testcookie', 'testcookieValue', {
       //Fri Apr 05 2013 21:23:41 GMT-0700 (PDT)
       expires : 1365222221485,
       domain : 'testDomain.com',

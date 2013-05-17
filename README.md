@@ -62,9 +62,7 @@ juicy-cookie may be downloaded directly or installed through `npm`.
  this constructor uses all possible property values:
  
  ```javascript
- JuicyCookie.getNew({
-    name : 'token'
-    value : 'sldkjf0s9df',
+ JuicyCookie.getNew('token', 'ls2f398j', {
     path : '/',
     domain : '.foxsports.com',
     secure : true,
@@ -85,11 +83,9 @@ juicy-cookie may be downloaded directly or installed through `npm`.
  constructs a new cookie object and persists it to the document.
  
  ```javascript
- JuicyCookie.getNew({
-    name : 'token'
-    value : 'sldkjf0s9df',
+ JuicyCookie.persist('token', 'js98dj9',
     expires : { mm : 30 }
- }
+ });
  ```
 
  - **getAllObj( _obj_ )**      
