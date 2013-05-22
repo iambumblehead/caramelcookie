@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.17-12:33:58 (last modified)  
+// Timestamp: 2013.05.22-11:33:16 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -23,7 +23,7 @@ var JuicyCookie =
     // domain inherited by all cookies may be explicitly defined:
     //
     // ex: `JuicyCookie.prototype.domain = 'mydomain.com'`
-    domain : false,
+    domain : '.defaultdomain.com',
 
     setDocCookieStr : function (cookieStr) {
       document.cookie = cookieStr;    
@@ -33,7 +33,7 @@ var JuicyCookie =
       return document.cookie;
     },
 
-    // should do a better job of setting default...
+    // ip address cannot be wildcarded
     getUrlAsDomainStr : function (url) {
       var dmn = '', toplevel;
 
@@ -41,7 +41,7 @@ var JuicyCookie =
         dmn = url;
         if (url !== 'localhost') {
           if ((toplevel = url.match(/\d*\.\d*\.\d*\.\d*$/))) {
-            // ip address cannot be wildcarded
+
             dmn = toplevel[0];
           } else if ((toplevel = url.match(/\w*\.\w*$/))) {
             dmn = '.' + toplevel[0];
@@ -50,7 +50,6 @@ var JuicyCookie =
       }
       return dmn;
     },
-
 
     getAsCookieStr : function () {
       var that = this,
@@ -140,23 +139,18 @@ var JuicyCookie =
     // allow prototype methods to be redefined!
     prototype : cookie,
 
-    // name    : name of cookie
-    // expired : timestamp or date object
     getNew : function (name, value, params) {
       var that = Object.create(cookie);
 
+      params = params || {};
+
       that.setName(name);
       that.setValue(value);
+      that.setExpires(params.expires);
+      that.setDomain(params.domain);
 
-      if (params) {
-        //that.setName(params.name);
-        that.setExpires(params.expires);
-        //that.setValue(params.value);
-        that.setDomain(params.domain);
-
-        that.path    = params.path || '/';
-        that.secure  = params.secure || false;
-      }
+      that.path    = params.path || '/';
+      that.secure  = params.secure || false;
 
       return that;
     },
@@ -199,7 +193,7 @@ var JuicyCookie =
     },
 
     rm : function (name) {
-      this.getNew(name, 'value').rm();
+      return this.getNew(name, 'value').rm();
     },
 
     getValue : function (name) {
