@@ -1,5 +1,5 @@
 // Filename: JuicyCookie.js  
-// Timestamp: 2013.05.22-16:09:23 (last modified)  
+// Timestamp: 2013.05.23-17:31:54 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -58,7 +58,7 @@ var JuicyCookie =
       finStr += that.expires ? ";expires=" + (new Date(that.expires)).toGMTString() : '';
       finStr += that.domain ? ";domain=" + that.domain : '';
       finStr += that.path ? ";path=" + that.path : '';
-      finStr += that.secure ? ";secure" : ';';
+      finStr += that.secure ? ";secure" : '';
 
       return finStr;
     },
@@ -193,24 +193,24 @@ var JuicyCookie =
       return null;
     },
 
-    // domain may be specified, ie, 
-    // .chris.foxsports.com
-    // .qa.foxsports.com
-    // .foxsports.com
+    // remove accross all domains
+    // `.blah.chris.foxsports.com`
+    // `.chris.foxsports.com`
+    // `.foxsports.com`
     rm : function (name) {
-      return this.getNew(name, 'value').rm();
-    },
-
-    rmAllDomains : function (name) {
       var that = this, hostname, sph, x;
+
+      that.getNew(name, '', {
+        domain : ''
+      }).rm();          
+
       if (typeof location === 'object') {
         hostname = location.hostname;
         sph = hostname.split('.');
-        for (x = sph.length; x-- > 1;) {
-          that.getNew(name, 'value', {
+        for (x = sph.length; x-- > 1; sph = sph.slice(1)) {
+          that.getNew(name, '', {
             domain : '.' + sph.join('.')
           }).rm();          
-          sph = sph.slice(1);
         }
       }
     },
