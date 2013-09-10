@@ -1,11 +1,9 @@
-// Filename: JuicyCookie.js  
-// Timestamp: 2013.05.23-17:31:54 (last modified)  
+// Filename: juicycookie.js  
+// Timestamp: 2013.09.09-21:32:04 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
-var SimpleTime = require('simpletime');
-
-var JuicyCookie = 
+var juicycookie = 
   ((typeof module === 'object') ? module : {}).exports = (function () {
 
   var cookie = {
@@ -100,21 +98,28 @@ var JuicyCookie =
     // 1) a date object
     // 2) an object w/ properties `y`, `m`, `d`, `hh`, `mm`, `ss`
     // 3) a number. assumption made: number is a timestamp
-    setExpires : function (o) {
-      var dateObj = '';
+    setExpires : function (opts) {
+      var dateObj = '', ms = 0;
 
-      if (SimpleTime.isDateObj(o)) {
-        dateObj = o;
-      } else if (typeof o === 'number') {
-        dateObj = o;
-      } else if (typeof o === 'object' && o) {
-        dateObj = new Date();
-        if (o.y) dateObj = SimpleTime.getYearFromDate(dateObj, o.y);
-        if (o.m) dateObj = SimpleTime.getMonthFromDate(dateObj, o.m);
-        if (o.d) dateObj = SimpleTime.getDayFromDate(dateObj, o.d);
-        if (o.hh) dateObj = SimpleTime.getHourFromDate(dateObj, o.hh);
-        if (o.mm) dateObj = SimpleTime.getMinFromDate(dateObj, o.mm);
-        if (o.ss) dateObj = SimpleTime.getSecFromDate(dateObj, o.ss);
+      if (opts instanceof Date) {
+        dateObj = opts;
+      } else if (typeof opts === 'number') {
+        dateObj = opts;
+      } else if (typeof opts === 'object' && opts) {
+        // 1000 * 60 * 60 * 24 * 256
+        if (typeof opts.y === 'number') ms += opts.hh * 22118400000; 
+        // 1000 * 60 * 60 * 24 * 30
+        if (typeof opts.m === 'number') ms += opts.m * 2592000000;
+        // 1000 * 60 * 60 * 24
+        if (typeof opts.d === 'number') ms += opts.d * 86400000;
+        // 1000 * 60 * 60
+        if (typeof opts.hh === 'number') ms += opts.hh * 3600000;
+        // 1000 * 60
+        if (typeof opts.mm === 'number') ms += opts.mm * 60000;
+        // 1000
+        if (typeof opts.ss === 'number') ms += opts.ss * 1000;
+        if (typeof opts.ms === 'number') ms += opts.ms;
+        dateObj = new Date(Date.now() + ms);
       }
       return this.expires = dateObj;
     },

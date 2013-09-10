@@ -9,7 +9,8 @@ juicy-cookie allows you to get, set, and rm cookie data.
 There are a [few][2] cookie-specific [details][3] that you may want to know.
 
    - the name of a cookie is not case-sensitive
-   - each cookie is associated with a specific domain-name -juicy-cookie uses your top-level domain as its default
+   - each cookie is associated with a specific domain-name      
+   - juicy-cookie uses your top-level domain as a default
    - a cookie from the document will not yield meta-data, name and value only
    - a cookie's domain value must have two '.' characters in it and should begin with a '.' character
 
