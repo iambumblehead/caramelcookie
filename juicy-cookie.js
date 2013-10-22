@@ -1,5 +1,5 @@
 // Filename: juicycookie.js  
-// Timestamp: 2013.09.09-21:32:04 (last modified)  
+// Timestamp: 2013.10.22-13:50:40 (last modified)  
 // Author(s): 
 // Requires: SimpleTime.js
 
@@ -84,6 +84,8 @@ var juicycookie =
         s = JSON.stringify(v);
       } else if (type === 'string') {
         s = v.replace(/,*$/, '');
+      } else if (type === 'number') {
+        s = v;
       }
 
       return s;

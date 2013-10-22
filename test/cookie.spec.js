@@ -129,6 +129,13 @@ describe("Cookie.prototype.getAsCrumbStr", function () {
     expect( result ).toBe( resultExpected );
   });
 
+  it("should return a numeric value if a numeric value is given", function () {
+    var result = Cookie.prototype.getAsCrumbStr(1),
+        resultExpected = 1;
+
+    expect( result ).toBe( resultExpected );
+  });
+
 });
 
 
