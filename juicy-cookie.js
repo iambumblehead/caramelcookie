@@ -1,9 +1,8 @@
 // Filename: juicycookie.js  
-// Timestamp: 2013.10.26-17:04:27 (last modified)  
+// Timestamp: 2015.12.20-00:51:49 (last modified)
 // Author(s): Bumblehead (www.bumblehead.com)
-// Requires:
 
-var juicycookie = ((typeof module === 'object') ? module : {}).exports = (function () {
+var juicycookie = module.exports = (function () {
 
   var cookie = {
     name : '', 
