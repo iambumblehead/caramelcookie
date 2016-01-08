@@ -1,69 +1,45 @@
 juicy-cookie
 ============
-**(c)[Bumblehead][0], 2013** [MIT-license](#license)  
+**(c)[Bumblehead][0], 2013,2016** [MIT-license](#license)
 
 ### Overview:
 
 juicy-cookie allows you to get, set, and rm cookie data. 
 
-There are a [few][2] cookie-specific [details][3] that you may want to know.
+You should know that there are a [few][2] cookie-specific [restrictions][3],
 
-   - the name of a cookie is not case-sensitive
-   - each cookie is associated with a specific domain-name      
-   - juicy-cookie uses your top-level domain as a default
-   - a cookie from the document will not yield meta-data, name and value only
-   - a cookie's domain value must have two '.' characters in it and should begin with a '.' character
+  * the name of a cookie is not case-sensitive
+  * a cookie will associate with a specific domain-name 
+    * juicy-cookie uses your top-level domain as a default
+  * cookies in the document will yield a name and value only
+  * a cookie's domain value must have begin with a '.' character
 
 [0]: http://www.bumblehead.com                            "bumblehead"
 [2]: https://developer.mozilla.org/en-US/docs/DOM/document.cookie
 [3]: http://tools.ietf.org/html/rfc6265                      "rfc6265"
 [4]: http://msdn.microsoft.com/en-us/library/ms970178.aspx      "msdn"
-
----------------------------------------------------------
-#### <a id="install"></a>Install:
-
-juicy-cookie may be downloaded directly or installed through `npm`.
-
- * **npm**   
-
- ```bash
- $ npm install juicy-cookie
- ```
-
- * **Direct Download**
- 
- ```bash  
- $ git clone https://github.com/iambumblehead/juicy-cookie.git
- ```
-
----------------------------------------------------------
-#### <a id="test"></a>Test:
-
- to run tests, use `npm test` from a shell.
-
- ```bash
- $ npm test
- ```
+[7]: https://raw.githubusercontent.com/iambumblehead/es5classic/master/es5classic_120x120.png
  
 ---------------------------------------------------------
 
-#### <a id="methods">Methods:
+#### <a id="methods">members
 
- - **prototype**  
- `prototype` is not a method but a property defined on the `JuicyCookie` namespace. the prototype is used by juicy-cookie to construct its own cookie object. prototype may be accessed to redefine its default properties. for example, you may want to specify a specific `domain` value cookies would associate with,
+ * **JuicyCookie.prototype**
 
- ```javascript
- JuicyCookie.prototype.domain = 'mydomain.com';
- ```
+  `prototype` is used by juicy-cookie to construct cookie objects. prototype may be redefined to use different property defaults. for example, to specify a specific `domain` value (rather than the default window top level domain),
 
+  ```javascript
+  JuicyCookie.prototype.domain = 'mydomain.com';
+  ```
 
- - **getNew( _obj_ )**     
- constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
+ * **getNew( _obj_ )**
 
- this constructor uses all possible property values:
+  constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
+
+  this constructor uses all possible property values. note that `expires` may also be defined a timestamp or a date object:
  
- ```javascript
- JuicyCookie.getNew('token', 'ls2f398j', {
+  ```javascript
+  JuicyCookie.getNew('token', 'ls2f398j', {
     path : '/',
     domain : '.foxsports.com',
     secure : true,
@@ -75,35 +51,33 @@ juicy-cookie may be downloaded directly or installed through `npm`.
       mm : 30,
       ss : 30
     }
- })
- ```
- note that expires may also be defined with the value of a timestamp or a date object.
+  })
+  ```
 
+ * **persist( _obj_ )**
 
- - **persist( _obj_ )**     
- constructs a new cookie object and persists it to the document.
+  constructs a new cookie object and persists it to the document.
  
- ```javascript
- JuicyCookie.persist('token', 'js98dj9',
+  ```javascript
+  JuicyCookie.persist('token', 'js98dj9',
     expires : { mm : 30 }
- });
- ```
+  });
+  ```
 
- - **getAllObj( _obj_ )**      
- returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
+ * **getAllObj( _obj_ )**
 
- - **rm( _name_ )**      
- removes the cookie with the given name from the document
+  returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
+
+ * **rm( _name_ )**
+
+  removes the cookie with the given name from the document
  
- - **getValue( _name_ )**   
- returns the value of the named cookie from the document, or null
- 
- 
----------------------------------------------------------
+ * **getValue( _name_ )**
 
-#### <a id="license">License:
+  returns the value of the named cookie from the document, or null
+ 
 
-![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png) 
+![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png)[![es5 classic][7]][7]
 
 (The MIT License)
 

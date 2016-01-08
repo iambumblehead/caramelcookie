@@ -10,15 +10,6 @@ var juicycookie = module.exports = (function () {
     expires : '',
     path : '/',
     secure : false,
-
-    // we try to define a reasonable default that would allow cookie sharing
-    // among subdomains. 
-    //
-    // ex: `.foxsports.com`.
-    //
-    // domain inherited by all cookies may be explicitly defined:
-    //
-    // ex: `JuicyCookie.prototype.domain = 'mydomain.com'`
     domain : '.defaultdomain.com',
 
     setDocCookieStr : function (cookieStr) {
@@ -30,6 +21,10 @@ var juicycookie = module.exports = (function () {
     },
 
     // ip address cannot be wildcarded
+    //
+    // defines top level domain as default to allowing cookie-access at subdomains. 
+    //
+    // ex: `.foxsports.com`.    
     getUrlAsDomainStr : function (url) {
       var dmn = '', toplevel;
 
@@ -171,14 +166,15 @@ var juicycookie = module.exports = (function () {
     // return all cookie values as object litersl
     // { name : value, name2 : value2, ... }
     getAllObj : function () {
-      var that = Object.create(cookie), x, crumb,
+      var that = Object.create(cookie),
           cookieArr = that.getDocCookieStr().split('; '),
           cookieObj = {};
 
-      for (x = cookieArr.length; x--;) {
-        crumb = cookieArr[x].split('=');
+      cookieArr.map(function (cookie) {
+        var crumb = cookie.split('=');
         cookieObj[crumb[0]] = unescape(crumb[1]);
-      }
+      });
+      
       return cookieObj;    
     },
 
@@ -228,7 +224,6 @@ var juicycookie = module.exports = (function () {
       }
       return value;
     }
-
   };
 
 }());
