@@ -2,7 +2,7 @@ juicy-cookie
 ============
 **(c)[Bumblehead][0], 2013,2016** [MIT-license](#license)
 
-### Overview:
+### overview
 
 juicy-cookie allows you to get, set, and rm cookie data. 
 
@@ -21,8 +21,6 @@ You should know that there are a [few][2] cookie-specific [restrictions][3],
 [7]: https://raw.githubusercontent.com/iambumblehead/es5classic/master/es5classic_120x120.png
  
 ---------------------------------------------------------
-
-#### <a id="methods">members
 
  * **JuicyCookie.prototype**
 
