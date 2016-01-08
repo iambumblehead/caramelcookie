@@ -24,55 +24,55 @@ You should know that there are a [few][2] cookie-specific [restrictions][3],
 
  * **JuicyCookie.prototype**
 
-  `prototype` is used by juicy-cookie to construct cookie objects. prototype may be redefined to use different property defaults. for example, to specify a specific `domain` value (rather than the default window top level domain),
+   `prototype` is used by juicy-cookie to construct cookie objects. prototype may be redefined to use different property defaults. for example, to specify a specific `domain` value (rather than the default window top level domain),
 
-  ```javascript
-  JuicyCookie.prototype.domain = 'mydomain.com';
-  ```
+   ```javascript
+   JuicyCookie.prototype.domain = 'mydomain.com';
+   ```
 
- * **getNew( _obj_ )**
+ * **getNew( _name_, _value_, _opts_ )**
 
-  constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
+   constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
 
-  this constructor uses all possible property values. note that `expires` may also be defined a timestamp or a date object:
+   this constructor uses all possible property values. note that `expires` may also be defined a timestamp or a date object:
  
-  ```javascript
-  JuicyCookie.getNew('token', 'ls2f398j', {
-    path : '/',
-    domain : '.foxsports.com',
-    secure : true,
-    expires : {
-      y : 0,
-      m : 0,
-      d : 0,
-      hh : 0,
-      mm : 30,
-      ss : 30
-    }
-  })
-  ```
+   ```javascript
+   JuicyCookie.getNew('token', 'ls2f398j', {
+     path : '/',
+     domain : '.foxsports.com',
+     secure : true,
+     expires : {
+       y : 0,
+       m : 0,
+       d : 0,
+       hh : 0,
+       mm : 30,
+       ss : 30
+     }
+   })
+   ```
 
- * **persist( _obj_ )**
+ * **persist( _name_, _value_, _opts_ )**
 
-  constructs a new cookie object and persists it to the document.
+   constructs a new cookie object and persists it to the document.
  
-  ```javascript
-  JuicyCookie.persist('token', 'js98dj9',
-    expires : { mm : 30 }
-  });
-  ```
+   ```javascript
+   JuicyCookie.persist('token', 'js98dj9',
+     expires : { mm : 30 }
+   });
+   ```
 
- * **getAllObj( _obj_ )**
+ * **getAllObj( )**
 
-  returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
+   returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
 
  * **rm( _name_ )**
 
-  removes the cookie with the given name from the document
+   removes the cookie with the given name from the document
  
  * **getValue( _name_ )**
 
-  returns the value of the named cookie from the document, or null
+   returns the value of the named cookie from the document, or null
  
 
 ![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png)[![es5 classic][7]][7]
