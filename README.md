@@ -57,7 +57,7 @@ You should know that there are a [few][2] cookie-specific [restrictions][3],
    constructs a new cookie object and persists it to the document.
  
    ```javascript
-   JuicyCookie.persist('token', 'js98dj9',
+   JuicyCookie.persist('token', 'js98dj9', {
      expires : { mm : 30 }
    });
    ```
