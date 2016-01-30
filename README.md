@@ -4,48 +4,48 @@ juicy-cookie
 
 juicy-cookie will get, set, and rm [cookie][2] data.
 
-**juicycookie.get( _name_ )**
+ 1. **juicycookie.get( _name_ )**
 
-cookie names are case-insensitive _[rfc link][3]_
+    cookie names are case-insensitive _[rfc link][3]_
 
-```javascript
-juicycookie.get('cookiename') // 'cookieval'
-```
+    ```javascript
+    juicycookie.get('cookiename') // 'cookieval'
+    ```
+
+ 2. **juicycookie.set( _name_, _value_, _opts_ )**
+
+    juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
+
+    define 'opt.expires' with unicode properties or a Date object.
+
+    ```javascript
+    juicycookie.set('cookiename', 'cookieval', {
+      expires : {
+        d  : 5,
+        hh : 2 // expires: 5 days, 2 hours
+      }
+    })
+    ```
+
+ 3. **juicycookie.rm( _name_ )**
+
+    ```javascript
+    juicycookie.rm('cookiename')
+    ```
+
+ 4. **juicycookie.getall( )**
+
+    return all cookie definitions found on the document
+
+    ```javscript
+    juicycookie.getall()
+    //{
+    //  cookiename1 : 'cookieval1'
+    //  cookiename2 : 'cookieval2'
+    //}
+    ```
 
 
-**juicycookie.set( _name_, _value_, _opts_ )**
-
-juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
-
-define 'opt.expires' with unicode properties or a Date object.
-
-```javascript
-juicycookie.set('cookiename', 'cookieval', {
-  expires : {
-    d  : 5,
-    hh : 2 // expires: 5 days, 2 hours
-  }
-})
-```
-
-**juicycookie.rm( _name_ )**
-
-```javascript
-juicycookie.rm('cookiename')
-```
-
-**juicycookie.getall( )**
-
-return all cookie definitions found on the document
-
-```javscript
-juicycookie.getall()
-//{
-//  cookiename1 : 'cookieval1'
-//  cookiename2 : 'cookieval2'
-//}
-```
- 
 [0]: http://www.bumblehead.com                            "bumblehead"
 [2]: https://developer.mozilla.org/en-US/docs/DOM/document.cookie
 [3]: http://tools.ietf.org/html/rfc6265                      "rfc6265"
