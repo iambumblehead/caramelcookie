@@ -2,79 +2,55 @@ juicy-cookie
 ============
 **(c)[Bumblehead][0], 2013,2016** [MIT-license](#license)
 
-### overview
+juicy-cookie will get, set, and rm [cookie][2] data.
 
-juicy-cookie allows you to get, set, and rm cookie data. 
+ 1. **juicycookie.get( _name_ )**
 
-You should know that there are a [few][2] cookie-specific [restrictions][3],
+    cookie names are case-insensitive (_[rfc link][3]_)
 
-  * the name of a cookie is not case-sensitive
-  * a cookie will associate with a specific domain-name 
-    * juicy-cookie uses your top-level domain as a default
-  * cookies in the document will yield a name and value only
-  * a cookie's domain value must have begin with a '.' character
+    ```javascript
+    juicycookie.get('cookiename') // 'cookieval'
+    ```
 
+ 2. **juicycookie.set( _name_, _value_, _opts_ );**
+
+    juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
+
+    define 'opt.expires' with unicode properties or a Date object.
+
+    ```javascript
+    juicycookie.set('cookiename', 'cookieval', {
+      expires : {
+        d  : 5,
+        hh : 2 // expires: 5 days, 2 hours
+      }
+    });
+    ```
+
+ 3. **juicycookie.rm( _name_ )**
+
+    ```javascript
+    juicycookie.rm('cookiename');
+    ```
+
+ 4. **juicycookie.getall( )**
+
+    return all cookie definitions found on the document
+
+    ```javscript
+    juicycookie.getall();
+    //{
+    //  cookiename1 : 'cookieval1'
+    //  cookiename2 : 'cookieval2'
+    //}
+    ```
+ 
 [0]: http://www.bumblehead.com                            "bumblehead"
 [2]: https://developer.mozilla.org/en-US/docs/DOM/document.cookie
 [3]: http://tools.ietf.org/html/rfc6265                      "rfc6265"
 [4]: http://msdn.microsoft.com/en-us/library/ms970178.aspx      "msdn"
 [7]: https://raw.githubusercontent.com/iambumblehead/es5classic/master/es5classic_120x120.png
- 
----------------------------------------------------------
-
- * **JuicyCookie.prototype**
-
-   `prototype` is used by juicy-cookie to construct cookie objects. prototype may be redefined to use different property defaults. for example, to specify a specific `domain` value (rather than the default window top level domain),
-
-   ```javascript
-   JuicyCookie.prototype.domain = 'mydomain.com';
-   ```
-
- * **getNew( _name_, _value_, _opts_ )**
-
-   constructs a new cookie object. does not persist the cookie in the browser environment. each cookie must have a `name` and a `value`. other properties are optional.
-
-   this constructor uses all possible property values. note that `expires` may also be defined a timestamp or a date object:
- 
-   ```javascript
-   JuicyCookie.getNew('token', 'ls2f398j', {
-     path : '/',
-     domain : '.foxsports.com',
-     secure : true,
-     expires : {
-       y : 0,
-       m : 0,
-       d : 0,
-       hh : 0,
-       mm : 30,
-       ss : 30
-     }
-   })
-   ```
-
- * **persist( _name_, _value_, _opts_ )**
-
-   constructs a new cookie object and persists it to the document.
- 
-   ```javascript
-   JuicyCookie.persist('token', 'js98dj9', {
-     expires : { mm : 30 }
-   });
-   ```
-
- * **getAllObj( )**
-
-   returns an object whose property-names are the names of each cookie available from the document. definitions are the values of each cookie.
-
- * **rm( _name_ )**
-
-   removes the cookie with the given name from the document
- 
- * **getValue( _name_ )**
-
-   returns the value of the named cookie from the document, or null
- 
-
+  
 ![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png)[![es5 classic][7]][7]
 
 (The MIT License)

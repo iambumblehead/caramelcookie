@@ -102,7 +102,7 @@ var juicycookie = module.exports = (function () {
         dateObj = opts;
       } else if (typeof opts === 'object' && opts) {
         // 1000 * 60 * 60 * 24 * 256
-        if (typeof opts.y === 'number') ms += opts.hh * 22118400000; 
+        if (typeof opts.y === 'number') ms += opts.y * 22118400000; 
         // 1000 * 60 * 60 * 24 * 30
         if (typeof opts.m === 'number') ms += opts.m * 2592000000;
         // 1000 * 60 * 60 * 24
@@ -119,7 +119,7 @@ var juicycookie = module.exports = (function () {
       return this.expires = dateObj;
     },
 
-    persist : function () {
+    set : function () {
       var that = this, 
           cookieStr = that.getAsCookieStr();
 
@@ -130,7 +130,7 @@ var juicycookie = module.exports = (function () {
       var that = this;
 
       that.expires = new Date(0);
-      return that.persist();
+      return that.set();
     }
 
   };
@@ -156,16 +156,16 @@ var juicycookie = module.exports = (function () {
       return that;
     },
 
-    // convenience method -constructs AND persists cookie
-    persist : function (name, value, params) {
+    // convenience method -constructs AND sets cookie
+    set : function (name, value, params) {
       var cookieObj = this.getNew(name, value, params);
 
-      return cookieObj.persist();
+      return cookieObj.set();
     },
 
     // return all cookie values as object litersl
     // { name : value, name2 : value2, ... }
-    getAllObj : function () {
+    getall : function () {
       var that = Object.create(cookie),
           cookieArr = that.getDocCookieStr().split('; '),
           cookieObj = {};
@@ -216,7 +216,7 @@ var juicycookie = module.exports = (function () {
       }
     },
 
-    getValue : function (name) {
+    get : function (name) {
       var cookie = this.getExisting(name), value = null;
       
       if (cookie) {
