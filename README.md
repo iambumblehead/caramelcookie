@@ -4,46 +4,47 @@ juicy-cookie
 
 juicy-cookie will get, set, and rm [cookie][2] data.
 
- 1. **juicycookie.get( _name_ )**
+**juicycookie.get( _name_ )**
 
-    cookie names are case-insensitive (_[rfc link][3]_)
+cookie names are case-insensitive _[rfc link][3]_
 
-    ```javascript
-    juicycookie.get('cookiename') // 'cookieval'
-    ```
+```javascript
+juicycookie.get('cookiename') // 'cookieval'
+```
 
- 2. **juicycookie.set( _name_, _value_, _opts_ );**
 
-    juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
+**juicycookie.set( _name_, _value_, _opts_ )**
 
-    define 'opt.expires' with unicode properties or a Date object.
+juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
 
-    ```javascript
-    juicycookie.set('cookiename', 'cookieval', {
-      expires : {
-        d  : 5,
-        hh : 2 // expires: 5 days, 2 hours
-      }
-    });
-    ```
+define 'opt.expires' with unicode properties or a Date object.
 
- 3. **juicycookie.rm( _name_ )**
+```javascript
+juicycookie.set('cookiename', 'cookieval', {
+  expires : {
+    d  : 5,
+    hh : 2 // expires: 5 days, 2 hours
+  }
+})
+```
 
-    ```javascript
-    juicycookie.rm('cookiename');
-    ```
+**juicycookie.rm( _name_ )**
 
- 4. **juicycookie.getall( )**
+```javascript
+juicycookie.rm('cookiename')
+```
 
-    return all cookie definitions found on the document
+**juicycookie.getall( )**
 
-    ```javscript
-    juicycookie.getall();
-    //{
-    //  cookiename1 : 'cookieval1'
-    //  cookiename2 : 'cookieval2'
-    //}
-    ```
+return all cookie definitions found on the document
+
+```javscript
+juicycookie.getall()
+//{
+//  cookiename1 : 'cookieval1'
+//  cookiename2 : 'cookieval2'
+//}
+```
  
 [0]: http://www.bumblehead.com                            "bumblehead"
 [2]: https://developer.mozilla.org/en-US/docs/DOM/document.cookie
@@ -55,7 +56,7 @@ juicy-cookie will get, set, and rm [cookie][2] data.
 
 (The MIT License)
 
-Copyright (c) 2013 [Bumblehead][0] <chris@bumblehead.com>
+Copyright (c) [Bumblehead][0] <chris@bumblehead.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
