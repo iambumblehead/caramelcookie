@@ -1,8 +1,10 @@
 {
   "name": "juicy-cookie",
   "main": "juicy-cookie",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "license": "MIT",
+  "readmeFilename": "README.md",
+  "description": "provides methods for creating and accessing browser cookie data",
   "repository": {
     "type": "git",
     "url": "https://github.com/iambumblehead/juicy-cookie.git"
@@ -18,7 +20,5 @@
   },
   "scripts" : {
       "test" : "node node_modules/jasmine-node/bin/jasmine-node --verbose test/"
-  },    
-  "readmeFilename": "README.md",
-  "description": "provides methods for creating and accessing browser cookie data"
+  }
 }
