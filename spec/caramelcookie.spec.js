@@ -1,8 +1,8 @@
 // browser emulation libs for node.js not yet sufficient using here.
 // poor mans tests.
 
-import test from 'ava';
-import Cookie from '../caramelcookie.js';
+const test = require( 'ava' );
+const Cookie = require('../').default;
 
 Cookie.prototype.setDocCookieStr = function (str) { return str; };
 Cookie.prototype.getDocCookieStr = function () {};

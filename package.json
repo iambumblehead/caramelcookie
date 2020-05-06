@@ -1,8 +1,9 @@
 {
   "name": "caramelcookie",
-  "main": "caramelcookie.js",
-  "type": "module",
-  "version": "1.0.0",
+  "main": "dist/caramelcookie",
+  "browser": "dist/caramelcookie",
+  "module": "caramelcookie",
+  "version": "1.0.1",
   "license": "MIT",
   "readmeFilename": "README.md",
   "description": "create and access browser cookie data",
@@ -15,9 +16,13 @@
     "browser"
   ],
   "devDependencies": {
-    "ava": "^3.6.0"
+    "ava": "^3.6.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   },
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "start": "./node_modules/babel-cli/bin/babel.js --presets env -d dist/ caramelcookie.js",
+    "prepare": "npm start && npm test"
   }
 }
