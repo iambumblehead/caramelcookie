@@ -1,48 +1,23 @@
-juicy-cookie
+caramelcookie
 ============
-**(c)[Bumblehead][0], 2013,2016** [MIT-license](#license)
 
-juicy-cookie will get, set, and rm [cookie][2] data.
+caramelcookie will get, set, and rm [cookie][2] data.     cookie names are case-insensitive _[rfc link.][3]_ caramelcookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
 
- 1. **juicycookie.get( _name_ )**
 
-    cookie names are case-insensitive _[rfc link][3]_
-
-    ```javascript
-    juicycookie.get('cookiename') // 'cookieval'
-    ```
-
- 2. **juicycookie.set( _name_, _value_, _opts_ )**
-
-    juicy-cookie associates cookies with the top-level domain by default. cookies must associate with a domain, beginning with a '.' character, ex '.foxsports.com'.
-
-    define 'opt.expires' with unicode properties or a Date object.
-
-    ```javascript
-    juicycookie.set('cookiename', 'cookieval', {
-      expires : {
-        d  : 5,
-        hh : 2 // expires: 5 days, 2 hours
-      }
-    })
-    ```
-
- 3. **juicycookie.rm( _name_ )**
-
-    ```javascript
-    juicycookie.rm('cookiename')
-    ```
-
- 4. **juicycookie.getall( )**
-
-    return all cookie definitions found on the document
-
-    ```javscript
-    juicycookie.getall()
-    //{
-    //  cookiename1 : 'cookieval1'
-    //  cookiename2 : 'cookieval2'
-    //}
+```javascript
+caramelcookie.get('cookiename') // 'cookieval'
+caramelcookie.set('cookiename', 'cookieval', {
+  expires : {
+    d  : 5,
+    hh : 2 // expires: 5 days, 2 hours
+  }
+});
+caramelcookie.rm('cookiename');
+caramelcookie.getall();
+//{
+//  cookiename1 : 'cookieval1'
+//  cookiename2 : 'cookieval2'
+//}
     ```
 
 
@@ -52,7 +27,7 @@ juicy-cookie will get, set, and rm [cookie][2] data.
 [4]: http://msdn.microsoft.com/en-us/library/ms970178.aspx      "msdn"
 [7]: https://raw.githubusercontent.com/iambumblehead/es5classic/master/es5classic_120x120.png
   
-![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png)[![es5 classic][7]][7]
+![scrounge](https://github.com/iambumblehead/scroungejs/raw/master/img/hand.png)
 
 (The MIT License)
 
