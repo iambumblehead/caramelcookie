@@ -4,7 +4,7 @@
   "browser": "dist/caramelcookie",
   "module": "caramelcookie",
   "types": "dist/caramelcookie.d.ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "readmeFilename": "README.md",
   "description": "create and access browser cookie data",
@@ -19,10 +19,13 @@
   "devDependencies": {
     "ava": "^3.6.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0"
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^7.0.0",
+    "babel-eslint": "^10.0.3"
   },
   "scripts": {
     "test": "ava",
+    "lint": "eslint caramelcookie.js",
     "start": "./node_modules/babel-cli/bin/babel.js --presets env -d dist/ caramelcookie.js",
     "prepare": "npm start && npm test"
   }
