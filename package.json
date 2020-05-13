@@ -3,6 +3,7 @@
   "main": "dist/caramelcookie",
   "browser": "dist/caramelcookie",
   "module": "caramelcookie",
+  "types": "dist/caramelcookie.d.ts",
   "version": "1.0.1",
   "license": "MIT",
   "readmeFilename": "README.md",
